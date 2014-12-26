@@ -14,7 +14,7 @@ class Supercubic
  int     Nhop;
  std::vector<std::complex<double>> hop;
  std::vector<int>  siti,sitj;
- std::vector<double> dispersion;
+ std::vector<double> dispersion,dispersion_inv; //dispersion_inv is the inverse k point
 
  Supercubic(); 
  Supercubic(int Dc, const int* Nc);

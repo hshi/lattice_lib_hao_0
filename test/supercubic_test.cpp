@@ -45,6 +45,7 @@ void supercubic_equal_test()
   if(abs(cubic_a.hop[i]-cubic.hop[i])>1e-12) flag++;
  }
  for(int i=0; i<cubic_a.L; i++) {if(abs(cubic_a.dispersion[i]-cubic.dispersion[i])>1e-12) flag++;}
+ for(int i=0; i<cubic_a.L; i++) {if(abs(cubic_a.dispersion_inv[i]-cubic.dispersion_inv[i])>1e-12) flag++;}
 
  //Supercubic cubic_b=std::move(cubic); 
  cubic_b=std::move(cubic); 
@@ -58,6 +59,7 @@ void supercubic_equal_test()
   if(abs(cubic_a.hop[i]-cubic_b.hop[i])>1e-12) flag++;
  }
  for(int i=0; i<cubic_a.L; i++) {if(abs(cubic_a.dispersion[i]-cubic_b.dispersion[i])>1e-12) flag++;}
+ for(int i=0; i<cubic_a.L; i++) {if(abs(cubic_a.dispersion_inv[i]-cubic_b.dispersion_inv[i])>1e-12) flag++;}
 
  if(flag==0) cout<<"Supercubic passed the equal test!\n";
  else cout<<"Warning!!!!Supercubic failed the equal test!\n";
@@ -229,8 +231,14 @@ void supercubic_nn_dispersion_test()
                         -1.7310254645985386,  4.941960541969448 ,  3.2189864623770488,
                         -0.49702094250646356, 6.175965064061523 ,  4.452990984469124,
                         -6.017639824430509,   0.6553461821374782, -1.0676278974549207};
+ double disp_inv_exact[12]={-7.251644346522585, -2.3016324195469977, -0.5786583399545964,
+                            -6.0176398244305105, -1.0676278974549238, 0.6553461821374778,
+                            -0.497020942506464, 4.452990984469123, 6.175965064061524,
+                            -1.731025464598539, 3.218986462377048, 4.941960541969449};
+
  size_t flag=0;
  for (int i=0; i<square.L; i++) {if(abs(square.dispersion[i]-disp_exact[i])>1e-12) flag++;}
+ for (int i=0; i<square.L; i++) {if(abs(square.dispersion_inv[i]-disp_inv_exact[i])>1e-12) flag++;}
 
  if(flag==0) cout<<"Supercubic passed the nndispersion test!\n";
  else cout<<"Warning!!!!Supercubic failed the nndispersion test!\n";
@@ -247,8 +255,13 @@ void supercubic_k2_dispersion_test()
                         4.62687054323069  , 10.06611919094216,  7.960603585376429,
                         6.6994874674594564, 12.138736115170925, 10.033220509605195,
                         1.0738129588385237, 6.513061606549993,  4.407546000984262};
+ double disp_inv_exact[12]={0.3829406507622672, 3.7166736929080058, 5.822189298473741,
+                            1.0738129588385223, 4.407546000984261, 6.5130616065499956,
+                            6.6994874674594564, 10.033220509605195, 12.13873611517093,
+                            4.62687054323069, 7.960603585376429, 10.066119190942164};
  size_t flag=0;
  for (int i=0; i<square.L; i++) {if(abs(square.dispersion[i]-disp_exact[i])>1e-12) flag++;}
+ for (int i=0; i<square.L; i++) {if(abs(square.dispersion_inv[i]-disp_inv_exact[i])>1e-12) flag++;}
  if(flag==0) cout<<"Supercubic passed the k2dispersion test!\n";
  else cout<<"Warning!!!!Supercubic failed the k2dispersion test!\n";
 }

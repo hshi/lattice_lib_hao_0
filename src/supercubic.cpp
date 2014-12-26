@@ -21,14 +21,16 @@ Supercubic::Supercubic(const Supercubic& x)
 {
  dimen=x.dimen;L=x.L;Nhop=x.Nhop;
  n=new int[dimen]; std::copy(x.n,x.n+dimen,n);
- hop=x.hop; siti=x.siti; sitj=x.sitj; dispersion=x.dispersion;
+ hop=x.hop; siti=x.siti; sitj=x.sitj; 
+ dispersion=x.dispersion;dispersion_inv=x.dispersion_inv;
 }
 
 Supercubic::Supercubic(Supercubic&& x) 
 {
  dimen=x.dimen;L=x.L;Nhop=x.Nhop;
  n=x.n; x.n=nullptr;
- hop=std::move(x.hop); siti=std::move(x.siti); sitj=std::move(x.sitj); dispersion=std::move(x.dispersion);
+ hop=std::move(x.hop); siti=std::move(x.siti); sitj=std::move(x.sitj);
+ dispersion=std::move(x.dispersion); dispersion_inv=std::move(x.dispersion_inv);
 }
 
 Supercubic::~Supercubic() {if(n) delete[] n;}
@@ -37,7 +39,8 @@ Supercubic& Supercubic::operator  = (const Supercubic& x)
 {
  dimen=x.dimen;L=x.L;Nhop=x.Nhop;
  if(n) delete[] n; n=new int[dimen]; std::copy(x.n,x.n+dimen,n);
- hop=x.hop; siti=x.siti; sitj=x.sitj; dispersion=x.dispersion;
+ hop=x.hop; siti=x.siti; sitj=x.sitj;
+ dispersion=x.dispersion;dispersion_inv=x.dispersion_inv;
  return *this;
 }
 
@@ -45,7 +48,8 @@ Supercubic& Supercubic::operator  = (Supercubic&& x)
 {
  dimen=x.dimen;L=x.L;Nhop=x.Nhop;
  n=x.n; x.n=nullptr;
- hop=std::move(x.hop); siti=std::move(x.siti); sitj=std::move(x.sitj); dispersion=std::move(x.dispersion);
+ hop=std::move(x.hop); siti=std::move(x.siti); sitj=std::move(x.sitj);
+ dispersion=std::move(x.dispersion); dispersion_inv=std::move(x.dispersion_inv);
  return *this;
 }
 
@@ -141,13 +145,18 @@ void Supercubic::set_dispersion(double t_nn_sc, const double* ktwist)
 {
  vector<int> k_tmp;
  double ek;
- dispersion.resize(L);
+ dispersion.resize(L); dispersion_inv.resize(L);
  for(int i=0; i<L; i++)
  {
   k_tmp=this->coor(i);
+
   ek=0.0;
   for(int j=0; j<dimen; j++) ek+=cos((k_tmp[j]+ktwist[j])*2.0*PI/n[j]);
   dispersion[i]=2.0*t_nn_sc*ek;
+
+  ek=0.0;
+  for(int j=0; j<dimen; j++) ek+=cos((k_tmp[j]-ktwist[j])*2.0*PI/n[j]);
+  dispersion_inv[i]=2.0*t_nn_sc*ek;
  }
 }
 
@@ -156,17 +165,29 @@ void Supercubic::set_dispersion(const double* ktwist)
 {
  vector<int> k_tmp; double km;
  double ek;
- dispersion.resize(L);
+ dispersion.resize(L); dispersion_inv.resize(L);
  for(int i=0; i<L; i++)
  {
+
   k_tmp=this->coor(i);
+
   ek=0.0;
   for(int j=0; j<dimen; j++) 
   {
    km=(k_tmp[j]+ktwist[j])*2.0*PI/n[j];
    if(km>=PI)  km-=2.0*PI;
-   ek+=km*km;
+   ek+=(km*km);
   }
   dispersion[i]=ek;
+
+  ek=0.0;
+  for(int j=0; j<dimen; j++)
+  {
+   km=(k_tmp[j]-ktwist[j])*2.0*PI/n[j];
+   if(km>=PI)  km-=2.0*PI;
+   ek+=(km*km);
+  }
+  dispersion_inv[i]=ek;
+
  }
 }
