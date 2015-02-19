@@ -1,6 +1,8 @@
 #ifdef MPI_HAO
 #include <mpi.h>
 #endif
+#include <iostream>
+using namespace std;
 
 void supercubic_test();
 
@@ -15,6 +17,7 @@ int main(int argc, char** argv)
 
     if(rank==0)
     {
+        cout<<"\n\n\n=======Testing======="<<endl;
         supercubic_test();
     }
 
