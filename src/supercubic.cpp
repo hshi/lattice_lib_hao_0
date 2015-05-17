@@ -71,7 +71,7 @@ int Supercubic::index(const vector<int>& lattice_coor) const
     if(size!=dimen) 
     {
         std::cout<<"Input for index in Supercubic error! Size of lattice_coor !=dimen \n"; 
-        throw std::runtime_error(" ");
+        exit(1);
     }
    
     int lattice_index=0; int den=1;
@@ -99,7 +99,7 @@ vector<int> Supercubic::distance(const vector<int>& coor_i, const vector<int>& c
     if(size_i!=dimen||size_j!=dimen)
     {
         std::cout<<"Input for distance in Supercubic error! Size of coor_i or coor_j !=dimen \n";
-        throw std::runtime_error(" ");
+        exit(1);
     }
    
     vector<int> dist(dimen);
