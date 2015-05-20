@@ -1,5 +1,5 @@
-#ifndef SUPERCUBIC
-#define SUPERCUBIC
+#ifndef SUPERCUBIC_H
+#define SUPERCUBIC_H
 
 #include<complex>
 #include<vector>
