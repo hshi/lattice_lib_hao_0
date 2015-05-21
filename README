@@ -2,3 +2,5 @@ lattice_lib_hao
 ===============
 
 The c++ lattice library, it contains the lattice class used for the lattice model.
+
+This project is licensed under the terms of the MIT license.
