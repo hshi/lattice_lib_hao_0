@@ -175,7 +175,7 @@ void Supercubic::set_dispersion(const double* ktwist)
         for(int j=0; j<dimen; j++) 
         {
             km=(k_tmp[j]+ktwist[j])*2.0*PI/n[j];
-            if(km>=PI)  km-=2.0*PI;
+            if(km>PI)  km-=2.0*PI;
             ek+=(km*km);
         }
         dispersion[i]=ek;

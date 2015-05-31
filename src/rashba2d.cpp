@@ -28,6 +28,7 @@ Rashba2d::Rashba2d(Rashba2d&& x):Supercubic(std::move(x))
     vk=std::move(x.vk);
 }
 
+
 Rashba2d::~Rashba2d() {}
 
 Rashba2d& Rashba2d::operator  = (const Rashba2d& x) 
@@ -67,7 +68,7 @@ void Rashba2d::set_dispersion(double t_nn_sc, double lambda)
 
         if( k_tmp[0]==0 && k_tmp[1]==0) uk[i]=-1.0/sqrt(2.0);
         else uk[i]= -1.0*( sin(ky)+Xi*sin(kx) ) / ( sqrt(2.0)*abs((sin(ky)-Xi*sin(kx))) );
-        vk[i]=-1.0/sqrt(2.0); 
+        vk[i]=1.0/sqrt(2.0); 
 
         dispersion[i]  = ek-esoc;
         dispersion[i+L]= ek+esoc;
@@ -85,8 +86,8 @@ void Rashba2d::set_dispersion(double lambda)
     for(int i=0; i<L; i++)
     {
         k_tmp=this->coor(i);
-        kx=k_tmp[0]*2.0*PI/n[0];
-        ky=k_tmp[1]*2.0*PI/n[1];
+        kx=k_tmp[0]*2.0*PI/n[0]; if(kx>PI)  kx-=2.0*PI;
+        ky=k_tmp[1]*2.0*PI/n[1]; if(ky>PI)  ky-=2.0*PI;
 
         ek   = kx*kx+ky*ky ;
 
@@ -94,7 +95,7 @@ void Rashba2d::set_dispersion(double lambda)
 
         if( k_tmp[0]==0 && k_tmp[1]==0) uk[i]=-1.0/sqrt(2.0);
         else uk[i]=-1.0*(ky+Xi*kx) / ( sqrt(2.0)*abs(ky-Xi*kx) );
-        vk[i]=-1.0/sqrt(2.0);
+        vk[i]=1.0/sqrt(2.0);
 
         dispersion[i]  = ek-esoc;
         dispersion[i+L]= ek+esoc;
