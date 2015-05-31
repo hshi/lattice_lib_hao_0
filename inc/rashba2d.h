@@ -3,6 +3,11 @@
 
 #include "supercubic.h"
 
+//Rashba2d inherited from supercubic
+//redefine the set_dispersion function, dispersion_inv is disabled.
+//coor, index, bound, distance, inverse can still be used.
+//set_nn_hop is not changed.
+
 class Rashba2d:public Supercubic
 {
  public:
