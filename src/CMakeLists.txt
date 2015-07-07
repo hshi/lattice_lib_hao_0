@@ -1,4 +1,4 @@
-set(lattice_srcs supercubic.cpp rashba2d.cpp)
+set(lattice_srcs supercubic.cpp rashba2d.cpp cluster.cpp)
 
 add_library(latticehao STATIC ${lattice_srcs})
 

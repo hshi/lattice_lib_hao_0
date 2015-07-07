@@ -3,8 +3,7 @@
 #include <math.h>
 #include "supercubic.h"
 
-using std::vector;
-using std::complex;
+using namespace std;
 #define PI 3.14159265358979324
 
 Supercubic::Supercubic():dimen(0),n(nullptr),L(0),Nhop(0){}

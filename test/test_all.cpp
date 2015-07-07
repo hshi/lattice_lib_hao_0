@@ -6,6 +6,7 @@ using namespace std;
 
 void supercubic_test();
 void rashba2d_test();
+void cluster_test();
 
 int main(int argc, char** argv)
 {
@@ -21,6 +22,7 @@ int main(int argc, char** argv)
         cout<<"\n\n\n=======Testing======="<<endl;
         supercubic_test();
         rashba2d_test();
+        cluster_test();
     }
 
 #ifdef MPI_HAO
