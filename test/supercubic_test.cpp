@@ -199,6 +199,23 @@ void read_lattice_test()
 
 }
 
+
+#ifdef MPI_HAO
+//Do not call this test in test_all.cpp
+void MPIBcast_test()
+{
+    int dimen=3;
+    int n[3]={3,5,6};
+    int rank=0; MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    Supercubic cubic;
+    if(rank==0) cubic=Supercubic(dimen,n);
+    MPIBcast(cubic);
+    //cout<<cubic.n[0]<<" "<<cubic.n[1]<<" "<<cubic.n[2]<<" "<<rank<<endl;
+    cout<<cubic.dimen<<" "<<rank<<endl;
+    //cout<<cubic.L<<" "<<rank<<endl;
+}
+#endif
+
 void supercubic_test()
 {
     supercubic_construct_test();

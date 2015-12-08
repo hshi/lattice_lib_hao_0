@@ -30,4 +30,11 @@ class Supercubic
 
 Supercubic read_lattice(std::string filename);
 
+
+#ifdef MPI_HAO
+#include <mpi.h>
+void MPIBcast(Supercubic& latt, int root=0,  const MPI_Comm& comm=MPI_COMM_WORLD);
+#endif
+
+
 #endif

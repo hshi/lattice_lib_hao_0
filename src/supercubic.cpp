@@ -129,3 +129,20 @@ Supercubic read_lattice(string filename)
 
     return latt;
 }
+
+
+#ifdef MPI_HAO
+//Bcast a supercubic latt
+void MPIBcast(Supercubic& latt, int root,  const MPI_Comm& comm)
+{
+    MPI_Bcast(&latt.dimen, 1, MPI_INT, root, comm);
+    MPI_Bcast(&latt.L, 1, MPI_INT, root, comm);
+    
+    int rank=0; MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    if(rank!=root)
+    {
+        if(latt.n) delete[] latt.n; latt.n=new int[latt.dimen];
+    }
+    MPI_Bcast(latt.n, latt.dimen, MPI_INT, root, comm);
+}
+#endif
