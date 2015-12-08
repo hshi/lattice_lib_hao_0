@@ -4,13 +4,12 @@
 #include<complex>
 #include<vector>
 
+//We do not have any member function for a general cluster.
+//Only the lattice size L is used in this class.
 class Cluster
 {
  public:
-    int     L;                              // total lattice number 
-    int     Nhop_up, Nhop_dn;               //Number of hopping
-    std::vector<std::complex<double>> hop_up, hop_dn;  //Hopping element
-    std::vector<int>  siti_up,sitj_up,siti_dn,sitj_dn; //Hopping site i and j
+    int     L; 
 
     Cluster(); 
     Cluster(const Cluster& x);

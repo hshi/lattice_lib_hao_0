@@ -1,3 +1,3 @@
-set(header supercubic.h rashba2d.h cluster.h)
+set(header supercubic.h cluster.h)
 
 install(FILES ${header}  DESTINATION include)
