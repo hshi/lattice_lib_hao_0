@@ -28,7 +28,7 @@ class Supercubic
     int inverse(int lattice_index) const; //return the inverse point of lattice_index with zero point
 };
 
-Supercubic read_lattice(std::string filename);
+Supercubic read_supercubic(std::string filename);
 
 
 #ifdef MPI_HAO

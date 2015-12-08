@@ -174,7 +174,7 @@ void supercubic_inverse_test()
     else cout<<"Warning!!!!Supercubic failed the inverse test!\n";
 }
 
-void read_lattice_test()
+void read_supercubic_test()
 {
     string filename="latt_file.dat";
     int dimen=3;
@@ -187,7 +187,7 @@ void read_lattice_test()
     for(int i=0; i<dimen;i++) {file<<n[i]<<" ";} file<<"\n";
     file.close();
 
-    Supercubic cubic=read_lattice(filename);
+    Supercubic cubic=read_supercubic(filename);
     if(cubic.dimen!=dimen) flag++;
     if(cubic.L!=90) flag++;
     for(int i=0; i<dimen;i++) {if(cubic.n[i]!=n[i]) flag++;}
@@ -202,7 +202,7 @@ void read_lattice_test()
 
 #ifdef MPI_HAO
 //Do not call this test in test_all.cpp
-void MPIBcast_test()
+void MPIBcast_supercubic_test()
 {
     int dimen=3;
     int n[3]={3,5,6};
@@ -225,5 +225,5 @@ void supercubic_test()
     supercubic_bound_test();
     supercubic_coor_relat_test();
     supercubic_inverse_test();
-    read_lattice_test();
+    read_supercubic_test();
 }
