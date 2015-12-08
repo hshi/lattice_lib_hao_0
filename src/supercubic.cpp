@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <limits>
 #include <stdexcept>
 #include <math.h>
 #include "supercubic.h"
@@ -103,4 +105,27 @@ int Supercubic::inverse(int lattice_index) const
     vector<int> coordinate=this->coor(lattice_index);
     for(int i=0; i<dimen; i++) coordinate[i]=this->bound(-coordinate[i],n[i]);
     return this->index(coordinate); 
+}
+
+
+//Read the parameters from "filename"
+//Create supercubic class and return it.
+Supercubic read_lattice(string filename)
+{
+    int     dimen;
+    int     *n;
+    ifstream latt_file;
+
+    latt_file.open(filename);
+
+    latt_file>>dimen; latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+    n=new int[dimen];
+    for(int i=0; i<dimen; i++) {latt_file>>n[i];} latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+
+    latt_file.close();
+
+    Supercubic latt(dimen,n);
+    delete[] n;
+
+    return latt;
 }

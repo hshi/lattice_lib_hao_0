@@ -3,6 +3,7 @@
 
 #include<complex>
 #include<vector>
+#include<string>
 
 class Supercubic
 {
@@ -26,5 +27,7 @@ class Supercubic
     std::vector<int> coor_relat(const std::vector<int>& coor_i, const std::vector<int>& coor_j) const; // return coor_j-coor_i
     int inverse(int lattice_index) const; //return the inverse point of lattice_index with zero point
 };
+
+Supercubic read_lattice(std::string filename);
 
 #endif

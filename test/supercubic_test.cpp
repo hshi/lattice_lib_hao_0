@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "supercubic.h"
 
 using namespace std;
@@ -173,6 +174,30 @@ void supercubic_inverse_test()
     else cout<<"Warning!!!!Supercubic failed the inverse test!\n";
 }
 
+void read_lattice_test()
+{
+    string filename="latt_file.dat";
+    int dimen=3;
+    int n[3]={3,5,6};
+    size_t flag=0;
+
+    ofstream file;
+    file.open(filename, ios::out|ios::trunc);
+    file<<dimen<<"\n";
+    for(int i=0; i<dimen;i++) {file<<n[i]<<" ";} file<<"\n";
+    file.close();
+
+    Supercubic cubic=read_lattice(filename);
+    if(cubic.dimen!=dimen) flag++;
+    if(cubic.L!=90) flag++;
+    for(int i=0; i<dimen;i++) {if(cubic.n[i]!=n[i]) flag++;}
+
+    remove( filename.c_str() );
+
+    if(flag==0) cout<<"Supercubic passed the read lattice test!\n";
+    else cout<<"Warning!!!!Supercubic failed the read lattice test!\n";
+
+}
 
 void supercubic_test()
 {
@@ -183,4 +208,5 @@ void supercubic_test()
     supercubic_bound_test();
     supercubic_coor_relat_test();
     supercubic_inverse_test();
+    read_lattice_test();
 }
