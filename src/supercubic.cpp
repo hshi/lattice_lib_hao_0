@@ -110,7 +110,7 @@ int Supercubic::inverse(int lattice_index) const
 
 //Read the parameters from "filename"
 //Create supercubic class and return it.
-Supercubic read_supercubic(string filename)
+void read_lattice(Supercubic& latt, string filename)
 {
     int     dimen;
     int     *n;
@@ -124,10 +124,8 @@ Supercubic read_supercubic(string filename)
 
     latt_file.close();
 
-    Supercubic latt(dimen,n);
+    latt=Supercubic(dimen,n);
     delete[] n;
-
-    return latt;
 }
 
 

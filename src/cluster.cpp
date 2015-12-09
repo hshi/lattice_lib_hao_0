@@ -36,7 +36,7 @@ Cluster& Cluster::operator  = (Cluster&& x)
 
 //Read the parameters from "filename"
 //Create cluster class and return it.
-Cluster read_cluster(string filename)
+void read_lattice(Cluster& latt, string filename)
 {
     int     L;
     ifstream latt_file;
@@ -45,9 +45,7 @@ Cluster read_cluster(string filename)
     latt_file>>L;
     latt_file.close();
 
-    Cluster latt(L);
-
-    return latt;
+    latt=Cluster(L);
 }
 
 #ifdef MPI_HAO

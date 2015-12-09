@@ -42,7 +42,7 @@ void read_cluster_test()
     file<<L<<"\n";
     file.close();
 
-    Cluster cubic=read_cluster(filename);
+    Cluster cubic; read_lattice(cubic,filename);
     if(cubic.L!=L) flag++;
 
     remove( filename.c_str() );

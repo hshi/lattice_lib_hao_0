@@ -187,7 +187,7 @@ void read_supercubic_test()
     for(int i=0; i<dimen;i++) {file<<n[i]<<" ";} file<<"\n";
     file.close();
 
-    Supercubic cubic=read_supercubic(filename);
+    Supercubic cubic; read_lattice(cubic,filename);
     if(cubic.dimen!=dimen) flag++;
     if(cubic.L!=90) flag++;
     for(int i=0; i<dimen;i++) {if(cubic.n[i]!=n[i]) flag++;}

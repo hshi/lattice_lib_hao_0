@@ -23,7 +23,7 @@ class Cluster
 };
 
 
-Cluster read_cluster(std::string filename);
+void read_lattice(Cluster& latt, std::string filename);
 
 #ifdef MPI_HAO
 #include <mpi.h>
