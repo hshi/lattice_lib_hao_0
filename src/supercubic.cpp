@@ -116,7 +116,7 @@ void read_lattice(Supercubic& latt, string filename)
     int     *n;
     ifstream latt_file;
 
-    latt_file.open(filename);
+    latt_file.open(filename, ios::in);
 
     latt_file>>dimen; latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
     n=new int[dimen];

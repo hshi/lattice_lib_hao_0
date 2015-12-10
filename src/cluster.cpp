@@ -41,7 +41,7 @@ void read_lattice(Cluster& latt, string filename)
     int     L;
     ifstream latt_file;
 
-    latt_file.open(filename);
+    latt_file.open(filename,ios::in);
     latt_file>>L;
     latt_file.close();
 
