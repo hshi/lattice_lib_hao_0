@@ -16,12 +16,9 @@ int main(int argc, char** argv)
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 #endif
 
-    if(rank==0)
-    {
-        cout<<"\n\n\n=======Testing======="<<endl;
-        supercubic_test();
-        cluster_test();
-    }
+    if(rank==0) cout<<"\n\n\n=======Testing======="<<endl;
+    supercubic_test();
+    //cluster_test();
 
 #ifdef MPI_HAO
     MPI_Finalize();

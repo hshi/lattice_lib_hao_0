@@ -16,6 +16,15 @@ Supercubic::Supercubic(int Dc, const int* Nc)
     L=1; for(int i=0; i<dimen; i++) L*=n[i];
 }
 
+Supercubic::Supercubic(string filename)
+{
+    n=nullptr;  //We first initial n, since read_param function assume n is either nullptr or allocated.
+    read_param(filename); //read dimen and *n, allocate n
+    L=1; for(int i=0; i<dimen; i++) L*=n[i];
+}
+
+
+
 Supercubic::Supercubic(const Supercubic& x) 
 {
     dimen=x.dimen;L=x.L;
@@ -109,38 +118,28 @@ int Supercubic::inverse(int lattice_index) const
 
 
 //Read the parameters from "filename"
-//Create supercubic class and return it.
-void read_lattice(Supercubic& latt, string filename)
+//Read dimen and *n, allocate n
+void Supercubic::read_param(string filename)
 {
-    int     dimen;
-    int     *n;
-    ifstream latt_file;
+    int rank=0; 
+#ifdef MPI_HAO
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
 
-    latt_file.open(filename, ios::in);
-
-    latt_file>>dimen; latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
-    n=new int[dimen];
-    for(int i=0; i<dimen; i++) {latt_file>>n[i];} latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
-
-    latt_file.close();
-
-    latt=Supercubic(dimen,n);
-    delete[] n;
-}
-
+    if(rank==0)
+    {
+       ifstream latt_file;
+       latt_file.open(filename, ios::in);
+       latt_file>>dimen; latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+       if(n) delete[] n; n=new int[dimen];
+       for(int i=0; i<dimen; i++) {latt_file>>n[i];} latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+       latt_file.close();
+    }
 
 #ifdef MPI_HAO
-//Bcast a supercubic latt
-void MPIBcast(Supercubic& latt, int root,  const MPI_Comm& comm)
-{
-    MPI_Bcast(&latt.dimen, 1, MPI_INT, root, comm);
-    MPI_Bcast(&latt.L, 1, MPI_INT, root, comm);
-    
-    int rank=0; MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    if(rank!=root)
-    {
-        if(latt.n) delete[] latt.n; latt.n=new int[latt.dimen];
-    }
-    MPI_Bcast(latt.n, latt.dimen, MPI_INT, root, comm);
-}
+    MPI_Bcast(&dimen, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    if(rank!=0) { if(n) delete[] n; n=new int[dimen]; }
+    MPI_Bcast(n, dimen, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
 #endif
+}

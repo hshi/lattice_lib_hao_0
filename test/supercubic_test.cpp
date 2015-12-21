@@ -174,56 +174,58 @@ void supercubic_inverse_test()
     else cout<<"Warning!!!!Supercubic failed the inverse test!\n";
 }
 
-void read_supercubic_test()
+void supercubic_read_construct_test()
 {
+    int rank=0;
+#ifdef MPI_HAO
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
+
     string filename="latt_file.dat";
     int dimen=3;
     int n[3]={3,5,6};
     size_t flag=0;
+    if(rank==0)
+    {
+        ofstream file;
+        file.open(filename, ios::out|ios::trunc);
+        file<<dimen<<"\n";
+        for(int i=0; i<dimen;i++) {file<<n[i]<<" ";} file<<"\n";
+        file.close();
+    }
 
-    ofstream file;
-    file.open(filename, ios::out|ios::trunc);
-    file<<dimen<<"\n";
-    for(int i=0; i<dimen;i++) {file<<n[i]<<" ";} file<<"\n";
-    file.close();
+    Supercubic cubic(filename);
 
-    Supercubic cubic; read_lattice(cubic,filename);
+    if(rank==0) remove( filename.c_str() );
+
     if(cubic.dimen!=dimen) flag++;
     if(cubic.L!=90) flag++;
     for(int i=0; i<dimen;i++) {if(cubic.n[i]!=n[i]) flag++;}
 
-    remove( filename.c_str() );
-
-    if(flag==0) cout<<"Supercubic passed the read lattice test!\n";
-    else cout<<"Warning!!!!Supercubic failed the read lattice test!\n";
-
+    if(flag!=0) cout<<"Warning!!!!Supercubic failed the read lattice test!\n";
+    if(rank==0) cout<<"If there is no waring, Supercubic passed the read lattice test!\n";
 }
 
-
-#ifdef MPI_HAO
-//Do not call this test in test_all.cpp
-void MPIBcast_supercubic_test()
-{
-    int dimen=3;
-    int n[3]={3,5,6};
-    int rank=0; MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    Supercubic cubic;
-    if(rank==0) cubic=Supercubic(dimen,n);
-    MPIBcast(cubic);
-    //cout<<cubic.n[0]<<" "<<cubic.n[1]<<" "<<cubic.n[2]<<" "<<rank<<endl;
-    cout<<cubic.dimen<<" "<<rank<<endl;
-    //cout<<cubic.L<<" "<<rank<<endl;
-}
-#endif
 
 void supercubic_test()
 {
-    supercubic_construct_test();
-    supercubic_equal_test();
-    supercubic_coor_test();
-    supercubic_index_test();
-    supercubic_bound_test();
-    supercubic_coor_relat_test();
-    supercubic_inverse_test();
-    read_supercubic_test();
+    int rank=0;
+#ifdef MPI_HAO
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
+
+    //Serial test
+    if(rank==0)
+    {
+        supercubic_construct_test();
+        supercubic_equal_test();
+        supercubic_coor_test();
+        supercubic_index_test();
+        supercubic_bound_test();
+        supercubic_coor_relat_test();
+        supercubic_inverse_test();
+    }
+
+    //Might involve mpi test
+    supercubic_read_construct_test();
 }

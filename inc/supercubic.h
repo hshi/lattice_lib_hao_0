@@ -5,6 +5,10 @@
 #include<vector>
 #include<string>
 
+#ifdef MPI_HAO
+#include <mpi.h>
+#endif
+
 class Supercubic
 {
  public:
@@ -12,8 +16,9 @@ class Supercubic
     int     *n;
     int     L;
    
-    Supercubic(); 
-    Supercubic(int Dc, const int* Nc);
+    Supercubic();                       //Void Construction.
+    Supercubic(int Dc, const int* Nc);  //Construct lattice from parameters.
+    Supercubic(std::string filename);   //Construct lattice from reading file.
     Supercubic(const Supercubic& x);
     Supercubic(Supercubic&& x);
     ~Supercubic();
@@ -26,14 +31,8 @@ class Supercubic
     int bound(const int i, const int i_max) const; 
     std::vector<int> coor_relat(const std::vector<int>& coor_i, const std::vector<int>& coor_j) const; // return coor_j-coor_i
     int inverse(int lattice_index) const; //return the inverse point of lattice_index with zero point
+
+    void read_param(std::string filename); // read dimen and *n, allocate n 
 };
-
-void read_lattice(Supercubic& latt, std::string filename);
-
-#ifdef MPI_HAO
-#include <mpi.h>
-void MPIBcast(Supercubic& latt, int root=0,  const MPI_Comm& comm=MPI_COMM_WORLD);
-#endif
-
 
 #endif
