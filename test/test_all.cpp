@@ -18,7 +18,7 @@ int main(int argc, char** argv)
 
     if(rank==0) cout<<"\n\n\n=======Testing======="<<endl;
     supercubic_test();
-    //cluster_test();
+    cluster_test();
 
 #ifdef MPI_HAO
     MPI_Finalize();

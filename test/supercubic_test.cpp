@@ -185,6 +185,7 @@ void supercubic_read_construct_test()
     int dimen=3;
     int n[3]={3,5,6};
     size_t flag=0;
+
     if(rank==0)
     {
         ofstream file;
@@ -228,4 +229,6 @@ void supercubic_test()
 
     //Might involve mpi test
     supercubic_read_construct_test();
+
+    if(rank==0) cout<<"\n";
 }

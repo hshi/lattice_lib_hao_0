@@ -10,6 +10,11 @@ Cluster::Cluster():L(0){}
 
 Cluster::Cluster(int Lc):L(Lc){}
 
+Cluster::Cluster(string filename) 
+{
+    read_param(filename);
+}
+
 Cluster::Cluster(const Cluster& x) 
 {
     L=x.L;
@@ -35,24 +40,25 @@ Cluster& Cluster::operator  = (Cluster&& x)
 }
 
 //Read the parameters from "filename"
-//Create cluster class and return it.
-void read_lattice(Cluster& latt, string filename)
+//Read L
+void Cluster::read_param(string filename)
 {
-    int     L;
-    ifstream latt_file;
+    int rank=0;
+#ifdef MPI_HAO
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+#endif
 
-    latt_file.open(filename,ios::in);
-    latt_file>>L;
-    latt_file.close();
-
-    latt=Cluster(L);
-}
+    if(rank==0)
+    {
+       ifstream latt_file;
+       latt_file.open(filename,ios::in);
+       latt_file>>L;
+       latt_file.close();
+    }
 
 #ifdef MPI_HAO
-//Bcast a cluster latt
-void MPIBcast(Cluster& latt, int root,  const MPI_Comm& comm)
-{
-    MPI_Bcast(&latt.L, 1, MPI_INT, root, comm);
-}
+    MPI_Bcast(&L, 1, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Barrier(MPI_COMM_WORLD);
 #endif
+}
 
