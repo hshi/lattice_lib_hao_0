@@ -52,6 +52,7 @@ void Cluster::read_param(string filename)
     {
        ifstream latt_file;
        latt_file.open(filename,ios::in);
+       if ( ! latt_file.is_open() ) {cout << "Error opening file!!!"; exit(1);}
        latt_file>>L;
        latt_file.close();
     }
