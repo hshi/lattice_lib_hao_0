@@ -1,5 +1,7 @@
-set(lattice_srcs supercubic.cpp cluster.cpp)
+set(src_lib latticehao)
 
-add_library(latticehao STATIC ${lattice_srcs})
+file(GLOB srcs "*.cpp")
 
-install(TARGETS latticehao DESTINATION lib)
+add_library(${src_lib} STATIC ${srcs})
+
+install(TARGETS ${src_lib}  DESTINATION lib)

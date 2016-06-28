@@ -1,3 +1,3 @@
-set(header supercubic.h cluster.h)
+file(GLOB header "*.h")
 
 install(FILES ${header}  DESTINATION include)

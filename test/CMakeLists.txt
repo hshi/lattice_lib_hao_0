@@ -1,7 +1,9 @@
-set(lattice_test_srcs supercubic_test.cpp cluster_test.cpp test_all.cpp)
+set(test_exe latticetest)
 
-add_executable(latticetest ${lattice_test_srcs})
+file(GLOB test_srcs "*.cpp")
 
-target_link_libraries(latticetest latticehao)
+add_executable(${test_exe} ${test_srcs})
 
-install(TARGETS latticetest  DESTINATION test)
+target_link_libraries(${test_exe} latticehao)
+
+install(TARGETS ${test_exe}  DESTINATION test)
