@@ -26,8 +26,8 @@ void cluster_construct_test()
     Cluster c_e; c_e=move(c_d);
     if(c_e.L!=c_a.L) flag++;
  
-    if(flag==0) cout<<"Cluster passed the construction test!\n";
-    else cout<<"Warning!!!!Cluster failed the construction test!\n";
+    if(flag==0) cout<<"PASSED! Cluster passed the construction test!"<<endl;
+    else cout<<"Warning!!!!Cluster failed the construction test!"<<endl;
 }
 
 
@@ -56,8 +56,8 @@ void cluster_read_construct_test()
 
     if(latt.L!=L) flag++;
 
-    if(flag!=0) cout<<"Warning!!!!Cluster failed the read lattice test!\n";
-    if(rank==0) cout<<"If there is no waring, Cluster passed the read lattice test!\n";
+    if(flag!=0) cout<<"Warning!!!!Cluster failed the read lattice test!"<<endl;
+    if(rank==0) cout<<"PASSED! If there is no waring, Cluster passed the read lattice test!"<<endl;
 }
 
 
@@ -77,5 +77,5 @@ void cluster_test()
     //Might involve mpi test
     cluster_read_construct_test();
 
-    if(rank==0) cout<<"\n";
+    if(rank==0) cout<<" "<<endl;
 }

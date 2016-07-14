@@ -34,8 +34,8 @@ void supercubic_construct_test()
     for(int i=0; i<dimen;i++) {if(cubic_a.n[i]!=cubic_b.n[i]) flag++;}
 
 
-    if(flag==0) cout<<"Supercubic passed the construction test!\n";
-    else cout<<"Warning!!!!Supercubic failed the construction test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the construction test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the construction test!"<<endl;
 }
 
 void supercubic_equal_test()
@@ -58,8 +58,8 @@ void supercubic_equal_test()
     if(cubic_a.L!=cubic_b.L) flag++;
     for(int i=0; i<dimen;i++) {if(cubic_a.n[i]!=cubic_b.n[i]) flag++;}
  
-    if(flag==0) cout<<"Supercubic passed the equal test!\n";
-    else cout<<"Warning!!!!Supercubic failed the equal test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the equal test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the equal test!"<<endl;
 }
 
 void supercubic_coor_test()
@@ -83,8 +83,8 @@ void supercubic_coor_test()
         if(iy==5) {iy=0;iz++;}
         //cout<<coor[0]<<" "<<coor[1]<<" "<<coor[2]<<"\n";
     }
-    if(flag==0) cout<<"Supercubic passed the coor test!\n";
-    else cout<<"Warning!!!!Supercubic failed the coor test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the coor test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the coor test!"<<endl;
 }
 
 void supercubic_index_test()
@@ -99,8 +99,8 @@ void supercubic_index_test()
         coor=cubic.coor(latt);
         if(cubic.index(coor)!=latt) flag++;
     }
-    if(flag==0) cout<<"Supercubic passed the index test!\n";
-    else cout<<"Warning!!!!Supercubic failed the index test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the index test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the index test!"<<endl;
 }
 
 void supercubic_bound_test()
@@ -119,8 +119,8 @@ void supercubic_bound_test()
     if(cubic.bound(10,7)!=3) flag++;
     if(cubic.bound(14,7)!=0) flag++;
     if(cubic.bound(22,7)!=1) flag++;
-    if(flag==0) cout<<"Supercubic passed the bound test!\n";
-    else cout<<"Warning!!!!Supercubic failed the bound test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the bound test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the bound test!"<<endl;
     //cout<<flag<<endl;
 }
 
@@ -144,8 +144,8 @@ void supercubic_coor_relat_test()
     dist=square.coor_relat(coor_i,coor_j);
     for(int i=0;i<dimen;i++) {if(dist[i]!=dist_exact[i]) flag++;}
    
-    if(flag==0) cout<<"Supercubic passed the coor_relat test!\n";
-    else cout<<"Warning!!!!Supercubic failed the coor_relat test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the coor_relat test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the coor_relat test!"<<endl;
    
     //cout<<flag<<endl;
 }
@@ -170,8 +170,8 @@ void supercubic_inverse_test()
     if(square.inverse(10)!=5)  flag++;
     if(square.inverse(11)!=4)  flag++;
    
-    if(flag==0) cout<<"Supercubic passed the inverse test!\n";
-    else cout<<"Warning!!!!Supercubic failed the inverse test!\n";
+    if(flag==0) cout<<"PASSED! Supercubic passed the inverse test!"<<endl;
+    else cout<<"Warning!!!!Supercubic failed the inverse test!"<<endl;
 }
 
 void supercubic_read_construct_test()
@@ -203,8 +203,8 @@ void supercubic_read_construct_test()
     if(cubic.L!=90) flag++;
     for(int i=0; i<dimen;i++) {if(cubic.n[i]!=n[i]) flag++;}
 
-    if(flag!=0) cout<<"Warning!!!!Supercubic failed the read lattice test!\n";
-    if(rank==0) cout<<"If there is no waring, Supercubic passed the read lattice test!\n";
+    if(flag!=0) cout<<"Warning!!!!Supercubic failed the read lattice test!"<<endl;
+    if(rank==0) cout<<"PASSED! If there is no waring, Supercubic passed the read lattice test!"<<endl;
 }
 
 
@@ -230,5 +230,5 @@ void supercubic_test()
     //Might involve mpi test
     supercubic_read_construct_test();
 
-    if(rank==0) cout<<"\n";
+    if(rank==0) cout<<" "<<endl;
 }
