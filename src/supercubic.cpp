@@ -131,9 +131,9 @@ void Supercubic::read_param(string filename)
        ifstream latt_file;
        latt_file.open(filename, ios::in);
        if ( ! latt_file.is_open() ) {cout << "Error opening file!!!"; exit(1);}
-       latt_file>>dimen; latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+       latt_file>>dimen;  //latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
        if(n) delete[] n; n=new int[dimen];
-       for(int i=0; i<dimen; i++) {latt_file>>n[i];} latt_file.ignore(numeric_limits<streamsize>::max(),'\n');
+       for(int i=0; i<dimen; i++) latt_file>>n[i];;
        latt_file.close();
     }
 
