@@ -1,6 +1,11 @@
 set(test_exe latticetest)
 
-file(GLOB test_srcs "*.cpp")
+set(test_srcs
+        ../inc/cluster.h
+        ../inc/supercubic.h
+        cluster_test.cpp
+        supercubic_test.cpp
+        test_all.cpp)
 
 add_executable(${test_exe} ${test_srcs})
 
